@@ -9,9 +9,11 @@ export default function App() {
   setTasks will update the value of to the current entry tasks.
   `
   const [entry, setEntry] = useState("");
-  const [tasks, setTasks] = useState("");
+  const [tasks, setTasks] = useState([]);
   const handleAdd =(e) =>{
-    setTasks(entry);
+    //tasks this time is an array, so setTasks
+    //will update an array by adding each tasks entered
+    setTasks((oldEntry) =>[...oldEntry,entry]);
     setEntry("");
     e.preventDefault();
   }
@@ -25,7 +27,13 @@ export default function App() {
               onChange={(e) =>setEntry(e.target.value)}/>
       <button onClick = {(e) =>{handleAdd(e)}}>Add </button>
       <hr/>
-      <div>{tasks}</div>
+      <div>
+        {tasks.map((task,id) =>(
+          <div key={id}>
+            <strong>{task}</strong>
+            </div>
+        ))}
+        </div>
     </div>
   );
 }
